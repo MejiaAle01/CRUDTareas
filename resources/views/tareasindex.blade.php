@@ -8,12 +8,17 @@
         <div class="card">
             <h5 class="card-header"> Tareas </h5>
             <div class="card-body">
+                @if (session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <p>
-                    <a href="{{ route('tareas.create') }}" class="btn btn-primary"> Agregar Tarea </a>
+                    <a href="{{ route('tareas.create') }}" class="btn btn-primary"> Agregar Tarea <i class="bi bi-plus-circle-fill"></i></a>
                 </p>
                 <hr>
                 <div class="table-responsive xxl">
-                    <table class="table">
+                    <table class="table table-striped table-hover caption-top">
                         <caption> Listado de tareas </caption>
                         <thead>
                             <tr>
@@ -26,15 +31,15 @@
                         <tbody>
                             @foreach ($datos as $tarea)
                                 <tr>
-                                    <td> {{ $tarea->titutoTarea }} </td>
+                                    <td> {{ $tarea->tituloTarea }} </td>
                                     <td> {{ $tarea->descripcionTarea }} </td>
                                     <td> {{ $tarea->tipoTarea }} </td>
                                     <td> {{ $tarea->estadoTarea }} </td>
                                     <td>
-                                        <a href="" class="btn btn-success">
+                                        <a href="{{ route('tareas.edit', encrypt($tarea->id)) }}" class="btn btn-success">
                                             <i class="bi-pencil-square"></i>
                                         </a>
-                                        <a href="" class="btn btn-danger">
+                                        <a href="{{ route('tareas.show', encrypt($tarea->id)) }}" class="btn btn-danger">
                                             <i class="bi-trash3"></i>
                                         </a>
                                     </td>
@@ -43,11 +48,6 @@
                         </tbody>
                     </table>
                 </div>
-                <nav>
-                    <ul class="pagination">
-                        <li class="page-item"></li>
-                    </ul>
-                </nav>
             </div>
         </div>
     </div>

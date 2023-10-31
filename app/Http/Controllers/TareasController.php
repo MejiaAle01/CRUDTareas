@@ -33,10 +33,10 @@ class TareasController extends Controller
         //
         $tareas = new Tareas();
 
-        $tareas->tituloTarea = $request->post('tituloTarea');
+        $tareas->tituloTarea      = $request->post('tituloTarea');
         $tareas->descripcionTarea = $request->post('descripcionTarea');
-        $tareas->tipoTarea = $request->post('tipoTarea');
-        $tareas->estadoTarea = $request->post('estadoTarea');
+        $tareas->tipoTarea        = $request->post('tipoTarea');
+        $tareas->estadoTarea      = $request->post('estadoTarea');
         $tareas->save();
 
         return redirect()->route('tareas.index')->with('success', 'Datos registrados exitosamente');
@@ -50,7 +50,7 @@ class TareasController extends Controller
         $id = decrypt($id);
 
         $tareas = Tareas::find($id);
-        return view('eliminarTarea', compact('tareas'));
+        return view('eliminartarea', compact('tareas'));
         //
     }
 
