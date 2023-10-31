@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsuariosController extends Controller
 {
@@ -12,15 +13,12 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        return view('login');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function registro()
     {
-        //
+        return view('registro');
     }
 
     /**
@@ -29,37 +27,19 @@ class UsuariosController extends Controller
     public function store(Request $request)
     {
         //
+        $usuarios = new Usuarios();
+
+        $usuarios->nombre = $request->post('nombre');
+        $usuarios->apellido = $request->post('apellido');
+        $usuarios->usuario = $request->post('usuario');
+        $usuarios->password = Hash::make($request->post('password'));
+        $usuarios->save();
+
+        return redirect()->route('usuarios.index')->with('success', 'Datos registrados exitosamente!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Usuarios $usuarios)
+    public function validarUsuario()
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Usuarios $usuarios)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Usuarios $usuarios)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Usuarios $usuarios)
-    {
-        //
+        return to_route('tareas.index');
     }
 }
